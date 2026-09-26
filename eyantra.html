@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Khoj-O-Drone — eYRC 2026–27 | Anantharaj S</title><link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../style.css"><style>
+.drone-hero{position:relative;overflow:hidden;isolation:isolate;perspective:900px;}
+.drone-hero::before{content:"";position:absolute;inset:8%;border-radius:24px;background:radial-gradient(circle at 50% 50%,rgba(0,238,255,.20),transparent 55%);filter:blur(18px);opacity:.8;z-index:-1;animation:droneGlow 2.8s ease-in-out infinite;}
+.drone-flyin{display:block;width:100%;transform-origin:50% 50%;animation:droneFlyIn 2.2s cubic-bezier(.18,.85,.22,1) both,droneHover 4.5s 2.2s ease-in-out infinite;filter:drop-shadow(0 0 22px rgba(0,229,255,.32));}
+.drone-hud{position:absolute;inset:6%;z-index:3;pointer-events:none;border:1px solid rgba(0,229,255,.12);border-radius:20px;overflow:hidden;opacity:0;animation:hudIn .7s 1.25s ease-out forwards;}
+.drone-hud .scan-line{position:absolute;left:0;right:0;top:-5%;height:2px;background:linear-gradient(90deg,transparent,#00eaff,transparent);box-shadow:0 0 14px #00eaff;animation:scan 2.6s 1.8s linear infinite;}
+.hud-corner{position:absolute;width:28px;height:28px;border-color:#00eaff;border-style:solid;filter:drop-shadow(0 0 6px #00eaff);}
+.hud-corner.tl{top:12px;left:12px;border-width:2px 0 0 2px}.hud-corner.tr{top:12px;right:12px;border-width:2px 2px 0 0}.hud-corner.bl{bottom:12px;left:12px;border-width:0 0 2px 2px}.hud-corner.br{bottom:12px;right:12px;border-width:0 2px 2px 0}
+.hud-label,.hud-target{position:absolute;font:700 10px/1 monospace;letter-spacing:2px;color:#7ffaff;background:rgba(0,12,20,.62);padding:7px 9px;border:1px solid rgba(0,234,255,.25);backdrop-filter:blur(6px)}
+.hud-label{left:18px;top:18px}.hud-target{right:18px;bottom:18px}
+@keyframes droneFlyIn{0%{opacity:0;transform:translate3d(125%, -65%, 260px) scale(.22) rotate(10deg)}55%{opacity:1;transform:translate3d(-7%,6%,40px) scale(1.06) rotate(-2deg)}100%{opacity:1;transform:translate3d(0,0,0) scale(1) rotate(0)}}
+@keyframes droneHover{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(.5deg)}}
+@keyframes droneGlow{0%,100%{transform:scale(.96);opacity:.55}50%{transform:scale(1.04);opacity:1}}
+@keyframes hudIn{to{opacity:1}}
+@keyframes scan{0%{top:-5%;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:105%;opacity:0}}
+@media(max-width:700px){.drone-flyin{animation-duration:1.25s,4s}.drone-hud{inset:4%}.hud-label,.hud-target{font-size:8px;letter-spacing:1px}}
+.drone-radar{position:absolute;left:50%;top:50%;width:70%;aspect-ratio:1/1;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(0,229,255,.14);z-index:0;opacity:0;animation:hudIn .7s 1.4s ease-out forwards, spinRadar 18s 1.4s linear infinite}
+.drone-radar:before,.drone-radar:after{content:'';position:absolute;inset:14%;border-radius:50%;border:1px dashed rgba(0,229,255,.12)}
+.drone-radar:after{inset:28%}
+@keyframes spinRadar{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.drone-beam{position:absolute;left:50%;bottom:6%;width:46%;height:70px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(0,229,255,.28),transparent 70%);filter:blur(4px);z-index:1;opacity:0;animation:hudIn .8s 1.9s ease-out forwards,beamPulse 2.4s 2.3s ease-in-out infinite}
+@keyframes beamPulse{0%,100%{opacity:.55}50%{opacity:.9}}
+.flight-trail{position:absolute;top:8%;right:6%;width:55%;height:55%;z-index:0;opacity:0;animation:hudIn .5s .3s ease-out forwards}
+.flight-trail path{stroke:url(#trailGrad);stroke-width:2;fill:none;stroke-dasharray:6 10;animation:trailDash 1.8s linear forwards}
+@keyframes trailDash{from{stroke-dashoffset:200}to{stroke-dashoffset:0}}
+.telemetry{position:absolute;left:18px;bottom:18px;z-index:3;display:flex;flex-direction:column;gap:6px;font:700 9px/1.4 monospace;letter-spacing:1.5px;color:#7ffaff}
+.telemetry span{opacity:0;transform:translateX(-8px);display:flex;align-items:center;gap:6px;animation:telemetryIn .5s ease-out forwards}
+.telemetry span:before{content:'';width:6px;height:6px;border-radius:50%;background:#3cffae;box-shadow:0 0 8px #3cffae}
+.telemetry span:nth-child(1){animation-delay:2.1s}
+.telemetry span:nth-child(2){animation-delay:2.35s}
+.telemetry span:nth-child(3){animation-delay:2.6s}
+.telemetry span:nth-child(4){animation-delay:2.85s}
+@keyframes telemetryIn{to{opacity:1;transform:none}}
+.hud-particle{position:absolute;width:3px;height:3px;border-radius:50%;background:#00eaff;box-shadow:0 0 8px #00eaff;opacity:0;animation:hudIn .4s ease-out forwards,particleFloat 5s ease-in-out infinite}
+@keyframes particleFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(10px,-14px)}}
+@media(max-width:700px){.drone-radar,.hud-particle{display:none}.telemetry{font-size:8px}}
+</style></head><body><div class="grid-bg"></div><div class="particles"></div><header class="nav"><a class="brand" href="../index.html">AS<span>.</span></a><nav><a href="../index.html#about">About</a><a href="../index.html#skills">Skills</a><a href="../index.html#projects">Projects</a><a href="../index.html#contact">Contact</a></nav></header><div class="subnav"><a href="../index.html">Home</a> → Projects → Khoj-O-Drone — eYRC 2026–27</div><main class="detail"><section class="detail-hero"><div class="detail-copy"><p class="eyebrow">ROBOTICS • e-YANTRA</p><h1>Khoj-O-Drone — eYRC 2026–27</h1><p class="lead">An e-Yantra Robotics Competition project focused on autonomous drone simulation, PID-based control, computer vision and ROS 2.</p><div class="tags"><span>Robotics · Drone Simulation · Computer Vision</span><span>Team Captain • eYRC #5963</span></div><a class="back-link" href="../index.html#projects">← Back to Projects</a></div><div class="hero-image drone-hero"><div class="drone-radar"></div><div class="drone-beam"></div><svg class="flight-trail" viewBox="0 0 200 200"><defs><linearGradient id="trailGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00eaff" stop-opacity="0"/><stop offset="100%" stop-color="#00eaff" stop-opacity=".7"/></linearGradient></defs><path d="M190 10 C 160 40, 120 60, 60 140"/></svg><div class="hud-particle" style="top:22%;left:20%;animation-delay:2.4s"></div><div class="hud-particle" style="top:60%;left:78%;animation-delay:3s"></div><div class="hud-particle" style="top:75%;left:30%;animation-delay:3.4s"></div><div class="drone-hud"><span class="hud-corner tl"></span><span class="hud-corner tr"></span><span class="hud-corner bl"></span><span class="hud-corner br"></span><span class="scan-line"></span><span class="hud-label">◉ TARGET LOCKED</span><span class="hud-target">ALT 12.4M</span></div><div class="telemetry"><span>DRONE ONLINE</span><span>ROS 2 HUMBLE</span><span>VISION ACTIVE</span><span>PID STABILIZED</span></div><img class="drone-flyin" src="../assets/khoj-o-drone.png" alt="Khoj-O-Drone — eYRC 2026–27 project"></div></section><div class="detail-grid"><article class="detail-card"><h2>Technologies</h2><div class="tech-list"><span>ROS 2 Humble</span><span>Python</span><span>OpenCV</span><span>MuJoCo</span><span>PID Control</span><span>Linux / Ubuntu</span></div></article><article class="detail-card"><h2>What I Worked On</h2><ul><li>Drone simulation using MuJoCo</li><li>ROS 2-based drone control</li><li>Marker detection using OpenCV</li><li>PID tuning for altitude, pitch and roll stabilization</li><li>ArUco/WhyCode marker-based positioning</li><li>ROS 2 nodes, topics and simulation workflow</li><li>eYRC Task 1A, 1B & 1C implementation and testing</li></ul></article></div></main><footer><div><b>AS<span>.</span></b><p>Learn • Build • Experiment • Grow.</p></div><p>© 2026 Anantharaj S</p></footer><script src="../script.js"></script><script>
+(function(){
+ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const drone=document.querySelector('.drone-flyin');
+ if(!drone) return;
+ const telemetrySpans=document.querySelectorAll('.telemetry span');
+ const trailPath=document.querySelector('.flight-trail path');
+ function replay(){
+   if(reduced) return;
+   drone.style.animation='none';
+   telemetrySpans.forEach(s=>{s.style.animation='none';});
+   if(trailPath) trailPath.style.animation='none';
+   void drone.offsetWidth;
+   drone.style.animation='droneFlyIn 2.2s cubic-bezier(.18,.85,.22,1) both, droneHover 4.5s 2.2s ease-in-out infinite';
+   telemetrySpans.forEach((s,i)=>{ s.style.animation=`telemetryIn .5s ease-out forwards`; s.style.animationDelay=(2.1+i*0.25)+'s'; });
+   if(trailPath){ trailPath.style.animation='trailDash 1.8s linear forwards'; }
+ }
+ window.addEventListener('pageshow', replay);
+ setTimeout(replay, 80);
+ if(!reduced) setInterval(replay, 9000);
+})();
+</script></body></html>
